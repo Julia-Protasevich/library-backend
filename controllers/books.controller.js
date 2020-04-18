@@ -1,6 +1,7 @@
-const Book = require('../models/book.model');
+import {Book} from '../models/book.model.js';
 
-//Simple version, without validation or sanitation
-exports.test = function (req, res) {
-    res.send('Greetings from the Test controller!');
+export const BooksController = {
+    async test(req, res) {
+        res.send('Greetings from the Test controller!');
+    }
 };
