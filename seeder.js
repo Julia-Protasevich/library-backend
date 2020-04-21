@@ -48,10 +48,7 @@ export const seedBooks = async () => {
 		for (let i = 0; i < quantity; i++) {
 			books.push(
 				new Book({
-					displayName: faker.internet.userName(),
-                    role: 'USER',
-                    email: faker.internet.email(),
-                    password: faker.internet.password()
+					name: faker.internet.userName()
 				})
 			);
 		}
