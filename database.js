@@ -16,5 +16,6 @@ const databaseConnect = async (config = appConfig) => {
 	} catch (error) {
 		console.log(`Something went wrong ${error}`);
 	}
-}
+};
+
 export default databaseConnect;
