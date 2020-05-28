@@ -25,9 +25,11 @@ export const seedUsers = async () => {
 			);
 		}
 		await User.remove();
-		users.forEach(user => {
-			User.create(user);
-		});
+		await Promise.all(
+			users.forEach(user => {
+				User.create(user);
+			})
+		);
 		console.log('Users DONE');
 	} catch (error) {
 		console.log(error);
