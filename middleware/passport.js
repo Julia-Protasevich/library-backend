@@ -14,19 +14,15 @@ passport.use(
             session: false
         },
         async function (email, password, done) {
-            let user;
-
             try{
-                user = await User.findOne({email});
+                let user = await User.findOne({email});
                 if (!user || !user.checkPassword(password)) {
                     return done(null, false, {message: 'User does not exist or wrong password.'});
                 }
                 return done(null, user);
             } catch(error) {
-                done(error);
+                return done(error);
             }
-
-            return done(null, user);
         }
     )
 );
@@ -42,10 +38,8 @@ passport.use(
     new JwtStrategy(
         jwtOptions, 
         async function (payload, done) {
-            let user;
-
             try{
-                user = await User.findById(payload.id);
+                let user = await User.findById(payload.id);
                 if (user) {
                     done(null, user);
                 } else {
