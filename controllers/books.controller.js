@@ -13,7 +13,16 @@ export const BooksController = {
 			res.status(400).send(error);
 		}
 
-    },
+	},
+	
+	async getBook(req, res) {
+		try {
+			const result = await Book.findById(req.params.id);
+			res.status(200).send(result);
+		} catch (error) {
+			res.status(400).send(error);
+		}
+	},
 
     async updateBook(req, res) {
         try {
