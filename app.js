@@ -5,8 +5,8 @@ import {booksRouter} from './routes/books.route.js'; // Imports routes for the b
 import {usersRouter} from './routes/users.route.js'; 
 
 import databaseConnect from './database.js';
-import passport from './authentication/passport.js';
-
+import passport from './middleware/passport.js';
+import startServer from './server.js';
 
 
 // initialize our express app
@@ -14,14 +14,11 @@ const app = express();
 
 databaseConnect();
 
-
-// Set up mongoose connection
-
-
 app.use(passport.initialize()); 
-
 
 app.use('/books', booksRouter);
 app.use('/user', usersRouter);
+
+startServer(app);
 
 export default app;
