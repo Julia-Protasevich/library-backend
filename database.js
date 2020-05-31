@@ -10,8 +10,9 @@ const databaseConnect = async (config = appConfig) => {
 		/** only populate database in 'dev' or 'development' mode */
 		if (process.env.NODE_ENV === 'development' || 'dev') {
 			/** execute seeders */
-			seedUsers();
-			seedBooks();
+			await seedUsers();
+			await seedBooks();
+
 		}
 	} catch (error) {
 		console.log(`Something went wrong ${error}`);
