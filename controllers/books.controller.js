@@ -18,7 +18,7 @@ export const BooksController = {
     async updateBook(req, res) {
         try {
 			const book = await Book.findByIdAndUpdate(req.params.id, req.body, {
-				taken: req.params.userId
+				isTakenByUser: req.params.userId
 			});
 			res.status(200).send(book);
 		} catch (error) {
