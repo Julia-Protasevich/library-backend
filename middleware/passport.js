@@ -47,12 +47,12 @@ passport.use(
             try{
                 user = await User.findById(payload.id);
                 if (user) {
-                    done(null, user);
+                   return  done(null, user);
                 } else {
-                    done(null, false);
+                    return done(null, false);
                 }
             } catch (error){
-                done(error);
+                return done(error);
             }
         }
     )
