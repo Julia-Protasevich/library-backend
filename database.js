@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import appConfig from './config/index.js';
 import { seedUsers, seedBooks} from './seeder.js';
-import {DEVELOPMENT, DEV} from './constants/environment.js';
+import environment from './constants/environment.js';
 
 /** connect to mongoDB with feedback */
 const databaseConnect = async (config = appConfig) => {
@@ -9,7 +9,7 @@ const databaseConnect = async (config = appConfig) => {
 		await mongoose.connect(config.database);
 		console.log('Connected to MongoDB!');
 		/** only populate database in 'dev' or 'development' mode */
-		if (process.env.NODE_ENV === DEVELOPMENT || DEV) {
+		if (process.env.NODE_ENV === environment.DEVELOPMENT || environment.DEV) {
 			/** execute seeders */
 			await seedUsers();
 			await seedBooks();
