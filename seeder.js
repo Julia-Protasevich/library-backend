@@ -26,7 +26,7 @@ export const seedUsers = async () => {
 		}
 		await User.remove();
 		await Promise.all(
-			users.forEach(user => {
+			users.map(user => {
 				User.create(user);
 			})
 		);
