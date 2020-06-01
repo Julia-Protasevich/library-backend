@@ -25,7 +25,7 @@ export const UsersController = {
         ctx.body = await User.create(user);
         
     }catch(err){
-      ctx.status = 400;
+      ctx.status = 500;
       ctx.body = err;
     }
     
