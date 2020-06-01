@@ -15,7 +15,7 @@ passport.use(
         },
         async function (email, password, done) {
             try{
-                let user = await User.findOne({email});
+                const user = await User.findOne({email});
                 if (!user || !user.checkPassword(password)) {
                     return done(null, false, {message: 'User does not exist or wrong password.'});
                 }
@@ -39,21 +39,21 @@ passport.use(
         jwtOptions, 
         async function (payload, done) {
             try{
-                let user = await User.findById(payload.id);
+                const user = await User.findById(payload.id);
                 if (user) {
-                    done(null, user);
+                   return done(null, user);
                 } else {
-                    done(null, false);
+                   return done(null, false);
                 }
             } catch (error){
-                done(error);
+                return done(error);
             }
         }
     )
 );
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+   return done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
@@ -62,9 +62,9 @@ passport.deserializeUser(async (id, done) => {
       if (!user) {
         return done(new Error('user not found'));
       }
-      done(null, user);
+      return done(null, user);
     } catch (e) {
-      done(e);
+      return done(e);
     }
   });
 
