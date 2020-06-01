@@ -31,7 +31,7 @@ export const BooksController = {
 			});
 			res.status(200).send(book);
 		} catch (error) {
-			res.status(404).send(error);
+			res.status(500).send(error);
 		}
 
     },
@@ -41,7 +41,7 @@ export const BooksController = {
 			const book = await Book.deleteOne({ _id: req.params.id });
 			res.status(200).send(book);//do I need to return the deleted obj??
         } catch (error) {
-			res.status(404).send(error);
+			res.status(500).send(error);
 		}
     }
 
