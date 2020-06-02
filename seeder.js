@@ -25,9 +25,9 @@ export const seedUsers = async () => {
 			);
 		}
 		await User.remove();
-		users.forEach(user => {
-			User.create(user);
-		});
+		await Promise.all(
+			users.map(user => User.create(user))
+		);
 		console.log('Users DONE');
 	} catch (error) {
 		console.log(error);
@@ -56,9 +56,9 @@ export const seedBooks = async () => {
 			);
 		}
 		await Book.remove();
-		books.forEach(book => {
-			Book.create(book);
-		});
+		await Promise.all(
+			books.map(book => Book.create(book))
+		);
 		console.log('Books DONE');
 	} catch (error) {
 		console.log(error);
