@@ -8,5 +8,6 @@ booksRouter.route('/test')
 booksRouter.route('/')
     .get(BooksController.getAllBooks);
 booksRouter.route('/:id')
+    .get(BooksController.getBook)
     .put(BooksController.updateBook)
     .delete(BooksController.deleteBook);

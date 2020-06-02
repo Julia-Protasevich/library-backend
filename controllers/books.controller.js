@@ -10,10 +10,19 @@ export const BooksController = {
 			const result = await Book.find().sort('name');
 			res.status(200).send(result);
 		} catch (error) {
-			res.status(400).send(error);
+			res.status(404).send(error);
 		}
 
-    },
+	},
+	
+	async getBook(req, res) {
+		try {
+			const result = await Book.findById(req.params.id);
+			res.status(200).send(result);
+		} catch (error) {
+			res.status(404).send(error);
+		}
+	},
 
     async updateBook(req, res) {
         try {
@@ -22,7 +31,7 @@ export const BooksController = {
 			});
 			res.status(200).send(book);
 		} catch (error) {
-			res.status(400).send(error);
+			res.status(500).send(error);
 		}
 
     },
@@ -32,7 +41,7 @@ export const BooksController = {
 			const book = await Book.deleteOne({ _id: req.params.id });
 			res.status(200).send(book);//do I need to return the deleted obj??
         } catch (error) {
-			res.status(400).send(error);
+			res.status(500).send(error);
 		}
     }
 
