@@ -1,25 +1,25 @@
 import merge from 'lodash.merge';
 import devConfig from './dev.js';
 import prodConfig from './prod.js';
+import environment from '../constants/environment.js';
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+process.env.NODE_ENV = process.env.NODE_ENV || environment.DEVELOPMENT;
 const env = process.env.NODE_ENV;
 
 const baseConfig = {
-	hello: 'world!',
 	secret: {}
 };
 
 let envConfig = {};
 
 switch (env) {
-	case 'development':
-	case 'dev':
+	case environment.DEVELOPMENT:
+	case environment.DEV:
 		envConfig = devConfig;
 		break;
 
-	case 'production':
-	case 'prod':
+	case environment.PRODUCTION:
+	case environment.PROD:
 		envConfig = prodConfig;
 		break;
 
