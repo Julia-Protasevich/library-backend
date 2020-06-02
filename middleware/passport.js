@@ -52,19 +52,15 @@ passport.use(
     )
 );
 
-passport.serializeUser((user, done) => {
-   return done(null, user.id);
-});
-
 passport.deserializeUser(async (id, done) => {
     try {
       let user = await User.findOne({where: {id}});
       if (!user) {
-        return done(new Error('user not found'));
+        done(new Error('user not found'));
       }
-      return done(null, user);
+       done(null, user);
     } catch (e) {
-      return done(e);
+       done(e);
     }
   });
 
