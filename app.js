@@ -15,13 +15,12 @@ const app = express();
 
 databaseConnect();
 
+corsSetup(app);
 app.use(passport.initialize()); 
 
 
 app.use('/books', booksRouter);
 app.use('/user', usersRouter);
-
-corsSetup(app);
 startServer(app);
 
 export default app;
