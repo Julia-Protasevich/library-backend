@@ -5,7 +5,7 @@ import {booksRouter} from './routes/books.route.js'; // Imports routes for the b
 import {usersRouter} from './routes/users.route.js'; 
 
 import databaseConnect from './database.js';
-import passport from './middleware/passport.js';
+import passport from './authentication/passport.js';
 import startServer from './server.js';
 
 
