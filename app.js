@@ -8,7 +8,7 @@ import databaseConnect from './database.js';
 import passport from './authentication/passport.js';
 import startServer from './server.js';
 import corsSetup from './middleware/cors.js';
-
+import setupLoggerOnProcess from './config/logger/setup-logger-on-process.js';
 
 const app = express();
 
