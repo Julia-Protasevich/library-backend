@@ -10,7 +10,6 @@ import startServer from './server.js';
 import corsSetup from './middleware/cors.js';
 
 
-// initialize our express app
 const app = express();
 
 databaseConnect();
