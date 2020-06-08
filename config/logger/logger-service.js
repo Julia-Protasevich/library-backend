@@ -23,11 +23,11 @@ class LoggerService {
    this.logger = logger;
   }
 
-  dateFormat() {
+  get dateFormat() {
     return new Date(Date.now()).toUTCString();
   }
 
-  setLogData(logData) {
+  set logData(logData) {
     this.logData = logData;
   }
 
