@@ -2,7 +2,7 @@ import winston from 'winston';
 
 class LoggerService {
   constructor(route) {
-    this.log_data = null;
+    this.logData = null;
     this.route = route;
 
     const logger = winston.createLogger({
@@ -15,7 +15,7 @@ class LoggerService {
       format: winston.format.printf((info) => {
         let message = `${this.dateFormat()} | ${info.level.toUpperCase()} | ${route}.log | ${info.message} | `;
         message = info.obj ? message + `data:${JSON.stringify(info.obj)} | ` : message;
-        message = this.log_data ? message + `log_data:${JSON.stringify(this.log_data)} | ` : message;
+        message = this.logData ? message + `logData:${JSON.stringify(this.logData)} | ` : message;
         return message;
       })
    });
@@ -27,8 +27,8 @@ class LoggerService {
     return new Date(Date.now()).toUTCString();
   }
 
-  setLogData(log_data) {
-    this.log_data = log_data;
+  setLogData(logData) {
+    this.logData = logData;
   }
 
   async info(message) {
