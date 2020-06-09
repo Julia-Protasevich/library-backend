@@ -1,8 +1,10 @@
 import winston from 'winston';
+
 const INFO = 'info',
       DEBUG = 'debug',
       ERROR = 'error',
       WARN = 'warn';
+
 class LoggerService {
   constructor(route) {
     this.route = route;
@@ -15,8 +17,8 @@ class LoggerService {
         })
       ],
       format: winston.format.printf((info) => {
-        let message = `${this.UtcDate} | ${info.level.toUpperCase()} | ${route}.log | ${info.message} | `;
-        message = info.obj ? message + `data:${JSON.stringify(info.obj)} | ` : message;
+        const message = `${this.UtcDate} | ${info.level.toUpperCase()} | ${route}.log | ${info.message} | ${info.obj ? `data:${JSON.stringify(info.obj)} | ` : ''}`;
+
         return message;
       })
    });
@@ -37,29 +39,36 @@ class LoggerService {
       obj
     });
   }
+
   async debug(message) {
     return this.logger.log(DEBUG, message);
   }
+
   async debug(message, obj) {
     return this.logger.log(DEBUG, message, {
       obj
     });
   }
+
   async error(message) {
     return this.logger.log(ERROR, message);
   }
+
   async error(message, obj) {
     return this.logger.log(ERROR, message, {
       obj
     });
   }
+
   async warn(message) {
     return this.logger.log(WARN, message);
   }
+
   async warn(message, obj) {
     return this.logger.log(WARN, message, {
       obj
     });
   }
 }
+
 export default LoggerService;
