@@ -1,8 +1,10 @@
 import winston from 'winston';
-
+const INFO = 'info',
+      DEBUG = 'debug',
+      ERROR = 'error',
+      WARN = 'warn';
 class LoggerService {
   constructor(route) {
-    this.logData = null;
     this.route = route;
 
     const logger = winston.createLogger({
@@ -13,9 +15,8 @@ class LoggerService {
         })
       ],
       format: winston.format.printf((info) => {
-        let message = `${this.dateFormat()} | ${info.level.toUpperCase()} | ${route}.log | ${info.message} | `;
+        let message = `${this.UtcDate} | ${info.level.toUpperCase()} | ${route}.log | ${info.message} | `;
         message = info.obj ? message + `data:${JSON.stringify(info.obj)} | ` : message;
-        message = this.logData ? message + `logData:${JSON.stringify(this.logData)} | ` : message;
         return message;
       })
    });
@@ -23,44 +24,40 @@ class LoggerService {
    this.logger = logger;
   }
 
-  get dateFormat() {
+  get UtcDate() {
     return new Date(Date.now()).toUTCString();
   }
 
-  set logData(logData) {
-    this.logData = logData;
-  }
-
   async info(message) {
-    this.logger.log('info', message);
+    return this.logger.log(INFO, message);
   } 
 
   async info(message, obj) {
-    this.logger.log('info', message, {
+    return this.logger.log(INFO, message, {
       obj
     });
   }
   async debug(message) {
-    this.logger.log('debug', message);
+    return this.logger.log(DEBUG, message);
   }
   async debug(message, obj) {
-    this.logger.log('debug', message, {
+    return this.logger.log(DEBUG, message, {
       obj
     });
   }
   async error(message) {
-    this.logger.log('error', message);
+    return this.logger.log(ERROR, message);
   }
   async error(message, obj) {
-    this.logger.log('error', message, {
+    return this.logger.log(ERROR, message, {
       obj
     });
   }
   async warn(message) {
-    this.logger.log('warn', message);
+    return this.logger.log(WARN, message);
   }
   async warn(message, obj) {
-    this.logger.log('warn', message, {
+    return this.logger.log(WARN, message, {
       obj
     });
   }
