@@ -19,7 +19,11 @@ class LoggerService {
       transports: [
         new winston.transports.Console(),
         new winston.transports.File({
-          filename: `./logs/Lod.log`
+          filename: `./logs/error.log`,
+          level: ERROR
+        }),
+        new winston.transports.File({
+          filename: `./logs/combined.log`
         })
       ],
       format: 
