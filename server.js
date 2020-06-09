@@ -1,13 +1,14 @@
 import config from './config/index.js';
 import LoggerService from './config/logger/logger-service.js';
+import internalIp from 'internal-ip';
 
 const logger = new LoggerService('server');
 
    
 export default (app) => {
     const port = config.port;
-    
+    const host = internalIp.v4.sync();
     return app.listen(port, () =>
-        logger.info(`Server is running on http://locahost:${port} in ${config.environment} mode`));
+        logger.info(`Server is running on http://${host}:${port} `));
 
 };

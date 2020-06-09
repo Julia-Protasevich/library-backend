@@ -7,8 +7,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || environment.DEVELOPMENT;
 const env = process.env.NODE_ENV;
 
 const baseConfig = {
-	secret: {}, 
-	environment: env
+	secret: {}
 };
 
 let envConfig = {};
