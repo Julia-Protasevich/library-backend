@@ -1,29 +1,44 @@
 import winston from 'winston';
 
-const INFO = 'info',
-      DEBUG = 'debug',
-      ERROR = 'error',
-      WARN = 'warn';
+const INFO = 'info';
+const DEBUG = 'debug';
+const ERROR = 'error';
+const WARN = 'warn';
 
+const colors = {
+  error: 'red',
+  warn: 'yellow',
+  info: 'green',
+  debug: 'yellow'
+};
+const loggerService = Symbol();
 class LoggerService {
-  constructor(route) {
-    this.route = route;
+  constructor() {
 
     const logger = winston.createLogger({
       transports: [
         new winston.transports.Console(),
         new winston.transports.File({
-          filename: `./logs/${route}.log`
+          filename: `./logs/Lod.log`
         })
       ],
-      format: winston.format.printf((info) => {
-        const message = `${this.UtcDate} | ${info.level.toUpperCase()} | ${route}.log | ${info.message} | ${info.obj ? `data:${JSON.stringify(info.obj)} | ` : ''}`;
+      format: 
+          winston.format.printf((info) => {
+            const message = `${this.UtcDate} | ${info.level.toUpperCase()} | ${info.message} | ${info.obj ? `data:${JSON.stringify(info.obj)} | ` : ''}`;
 
-        return message;
-      })
+            return message;
+          })
    });
 
    this.logger = logger;
+  }
+
+  static get instance() {
+    if(!this[loggerService]){
+      this[loggerService] = new LoggerService();
+    }
+
+    return this[loggerService];
   }
 
   get UtcDate() {

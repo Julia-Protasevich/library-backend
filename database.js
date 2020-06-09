@@ -4,7 +4,7 @@ import { seedUsers, seedBooks} from './seeder.js';
 import environment from './constants/environment.js';
 import LoggerService from './config/logger/logger-service.js';
 
-const logger = new LoggerService('DB-connector');
+const logger = LoggerService.instance;
 
 /** connect to mongoDB with feedback */
 const databaseConnect = async (config = appConfig) => {
@@ -19,7 +19,7 @@ const databaseConnect = async (config = appConfig) => {
 
 		}
 	} catch (error) {
-		logger.error('Something went wrong ', error);
+		logger.error('Problems with database connect ', error);
 	}
 };
 

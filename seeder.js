@@ -3,7 +3,7 @@ import {User} from './models/user.model.js';
 import {Book} from './models/book.model.js';
 import LoggerService from './config/logger/logger-service.js';
 
-const logger = new LoggerService('seeder');
+const logger = LoggerService.instance;
 
 export const seedUsers = async () => {
 	try {

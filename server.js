@@ -2,7 +2,7 @@ import config from './config/index.js';
 import LoggerService from './config/logger/logger-service.js';
 import internalIp from 'internal-ip';
 
-const logger = new LoggerService('server');
+const logger = LoggerService.instance;
 
    
 export default (app) => {

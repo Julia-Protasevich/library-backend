@@ -5,7 +5,7 @@
  import process from 'process';
  import LoggerService from './logger-service.js';
  
- const logger = new LoggerService('app');
+ const logger = LoggerService.instance;
 
 process.on('uncaughtException', err => {
     logger.error(`Uncaught Exception: ${err.message}`);

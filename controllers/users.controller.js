@@ -3,8 +3,7 @@ import passport from '../authentication/passport.js';
 
 import LoggerService from '../config/logger/logger-service.js';
 
-const logger  = new LoggerService('users-controller');
-
+const logger  = LoggerService.instance;
 
 export const UsersController = {
   async login(ctx, next){

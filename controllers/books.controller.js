@@ -1,7 +1,8 @@
 import {Book} from '../models/book.model.js';
 import LoggerService from '../config/logger/logger-service.js';
 
-const logger  = new LoggerService('books-controller');
+const logger  = LoggerService.instance;
+
 export const BooksController = {
 
     async getAllBooks(req, res) {
