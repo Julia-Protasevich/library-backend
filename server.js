@@ -8,6 +8,6 @@ export default (app) => {
     const port = config.port;
     
     return app.listen(port, () =>
-        logger.info(`Server is running on http://locahost:${port}`));
+        logger.info(`Server is running on http://locahost:${port} in ${config.environment} mode`));
 
 };
