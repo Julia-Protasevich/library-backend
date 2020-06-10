@@ -1,7 +1,5 @@
 import {Book} from '../models/book.model.js';
-import LoggerService from '../config/logger/logger-service.js';
-
-const logger  = LoggerService.instance;
+import logger from '../config/logger/logger-service.js';
 
 export const BooksController = {
 

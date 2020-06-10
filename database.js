@@ -2,9 +2,7 @@ import mongoose from 'mongoose';
 import appConfig from './config/index.js';
 import { seedUsers, seedBooks} from './seeder.js';
 import environment from './constants/environment.js';
-import LoggerService from './config/logger/logger-service.js';
-
-const logger = LoggerService.instance;
+import logger from './config/logger/logger-service.js';
 
 /** connect to mongoDB with feedback */
 const databaseConnect = async (config = appConfig) => {

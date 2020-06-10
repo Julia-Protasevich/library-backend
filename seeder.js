@@ -1,9 +1,7 @@
 import faker from 'faker';
 import {User} from './models/user.model.js';
 import {Book} from './models/book.model.js';
-import LoggerService from './config/logger/logger-service.js';
-
-const logger = LoggerService.instance;
+import logger from './config/logger/logger-service.js';
 
 export const seedUsers = async () => {
 	try {

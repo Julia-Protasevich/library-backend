@@ -4,11 +4,8 @@ const INFO = 'info';
 const DEBUG = 'debug';
 const ERROR = 'error';
 const WARN = 'warn';
-
-const loggerService = Symbol();
 class LoggerService {
   constructor() {
-
     const logger = winston.createLogger({
       transports: [
         new winston.transports.Console({
@@ -36,14 +33,6 @@ class LoggerService {
     const message = `${this.UtcDate} | ${info.level} | ${info.message} | ${info.obj ? `data:${JSON.stringify(info.obj)} | ` : ''}`;
 
     return message;
-  }
-
-  static get instance() {
-    if(!this[loggerService]){
-      this[loggerService] = new LoggerService();
-    }
-
-    return this[loggerService];
   }
 
   get UtcDate() {
@@ -91,4 +80,4 @@ class LoggerService {
   }
 }
 
-export default LoggerService;
+export default new LoggerService();

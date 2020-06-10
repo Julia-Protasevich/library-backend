@@ -1,9 +1,6 @@
 import config from './config/index.js';
-import LoggerService from './config/logger/logger-service.js';
+import logger from './config/logger/logger-service.js';
 import internalIp from 'internal-ip';
-
-const logger = LoggerService.instance;
-
    
 export default (app) => {
     const port = config.port;

@@ -3,10 +3,8 @@
  */
 
  import process from 'process';
- import LoggerService from './logger-service.js';
+ import logger from './logger-service.js';
  
- const logger = LoggerService.instance;
-
 process.on('uncaughtException', err => {
     logger.error(`Uncaught Exception: ${err.message}`);
     process.exit(1);
@@ -18,7 +16,7 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 process.on('SIGTERM', err => {
-    logger.warn(`SIGTERM  ${err.message}`);
+    logger.warn(`SIGTERM  triggered`);
     process.exit(0);
 });
 process.on('SIGINT', err => {

@@ -1,9 +1,7 @@
 import {User} from '../models/user.model.js';
 import passport from '../authentication/passport.js';
 
-import LoggerService from '../config/logger/logger-service.js';
-
-const logger  = LoggerService.instance;
+import logger from '../config/logger/logger-service.js';
 
 export const UsersController = {
   async login(ctx, next){
