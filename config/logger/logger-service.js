@@ -5,36 +5,37 @@ const DEBUG = 'debug';
 const ERROR = 'error';
 const WARN = 'warn';
 
-const colors = {
-  error: 'red',
-  warn: 'yellow',
-  info: 'green',
-  debug: 'yellow'
-};
 const loggerService = Symbol();
 class LoggerService {
   constructor() {
 
     const logger = winston.createLogger({
       transports: [
-        new winston.transports.Console(),
-        new winston.transports.File({
-          filename: `./logs/error.log`,
-          level: ERROR
+        new winston.transports.Console({
+          format: winston.format.combine(
+            winston.format.colorize(),
+            winston.format.printf((info) => this.formatMessage(info))
+        )
         }),
         new winston.transports.File({
-          filename: `./logs/combined.log`
+          filename: `./logs/error.log`,
+          level: ERROR,
+          format: winston.format.printf((info) => this.formatMessage(info))
+        }),
+        new winston.transports.File({
+          filename: `./logs/combined.log`,
+          format: winston.format.printf((info) => this.formatMessage(info))
         })
-      ],
-      format: 
-          winston.format.printf((info) => {
-            const message = `${this.UtcDate} | ${info.level.toUpperCase()} | ${info.message} | ${info.obj ? `data:${JSON.stringify(info.obj)} | ` : ''}`;
-
-            return message;
-          })
+      ]
    });
 
    this.logger = logger;
+  }
+
+  formatMessage(info) {
+    const message = `${this.UtcDate} | ${info.level} | ${info.message} | ${info.obj ? `data:${JSON.stringify(info.obj)} | ` : ''}`;
+
+    return message;
   }
 
   static get instance() {
