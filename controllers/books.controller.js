@@ -1,9 +1,7 @@
 import {Book} from '../models/book.model.js';
+import logger from '../config/logger/logger-service.js';
 
 export const BooksController = {
-    async test(req, res) {
-        res.send('Greetings from the Test controller!');
-    },
 
     async getAllBooks(req, res) {
         try {
@@ -11,6 +9,7 @@ export const BooksController = {
 			res.status(200).send(result);
 		} catch (error) {
 			res.status(404).send(error);
+			logger.warn('GetAllBooks 404', req);
 		}
 
 	},
@@ -21,6 +20,7 @@ export const BooksController = {
 			res.status(200).send(result);
 		} catch (error) {
 			res.status(404).send(error);
+			logger.warn('GetBook 404', req);
 		}
 	},
 
@@ -32,6 +32,7 @@ export const BooksController = {
 			res.status(200).send(book);
 		} catch (error) {
 			res.status(500).send(error);
+			logger.warn('UpdateBook 500', req);
 		}
 
     },
@@ -42,6 +43,7 @@ export const BooksController = {
 			res.status(200).send(book);//do I need to return the deleted obj??
         } catch (error) {
 			res.status(500).send(error);
+			logger.warn('DeleteBook 500', req);
 		}
     }
 
