@@ -36,7 +36,7 @@ export const UsersController = {
         res.body = await User.create(user);
         
     }catch(err){
-      next(err);
+      return next(err);
     }
     
   }

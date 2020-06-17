@@ -7,9 +7,9 @@ export const BooksController = {
 	async getAllBooks(req, res, next) {
 		try {
 			const result = await Book.find().sort('name');
-			res.status(200).send(result);
+			res.status(200).json(result);
 		} catch (err) {
-			next(err);
+			return next(err);
 		}
 	},
 
@@ -19,12 +19,12 @@ export const BooksController = {
 				_id: req.params.id
 			});
 			if(!result) {
-				res.status(404).send(NO_BOOKS_FOUND_FOR_ID);
+				res.status(404).json(NO_BOOKS_FOUND_FOR_ID);
 			} else {
-				res.status(200).send(result);
+				res.status(200).json(result);
 			}
 		} catch (err) {
-			next(err);
+			return next(err);
 		}
 	},
 
@@ -42,13 +42,13 @@ export const BooksController = {
 				if (err) {
 					next(err);
 				} else if (result) {
-					res.status(200).send(result);
+					res.status(200).json(result);
 				} else {
-					res.status(404).send(NO_BOOKS_FOUND_FOR_ID);
+					res.status(404).json(NO_BOOKS_FOUND_FOR_ID);
 				}
 			});
 		} catch (err) {
-			next(err);
+			return next(err);
 		}
 	},
 
@@ -58,12 +58,12 @@ export const BooksController = {
 				_id: req.params.id
 			});
 			if(result.deletedCount == 0){
-				res.status(404).send(NO_BOOKS_FOUND_FOR_ID);
+				res.status(404).json(NO_BOOKS_FOUND_FOR_ID);
 			} else {
-				res.status(200).send();
+				res.status(200).json();
 			}
 		} catch (err) {
-			next(err);
+			return next(err);
 		}
 	}
 
