@@ -4,10 +4,14 @@ import passport from '../authentication/passport.js';
 import logger from '../config/logger/logger-service.js';
 
 export const UsersController = {
-  async login(ctx, next){
+  async login(req, res, next){
     await passport.authenticate('local', function (err, user) {
+      if (err) {
+        return next(err);
+      }
+  
       if (user == false) {
-        ctx.body = "Login failed";
+        res.body = "Login failed";
         logger.warn('Login failed');
       } else {
         const payload = {
@@ -17,22 +21,22 @@ export const UsersController = {
         };
         const token = jwt.sign(payload, jwtsecret); 
         
-        ctx.body = {user: user.displayName, token: 'JWT ' + token};
+        res.body = {user: user.displayName, token: 'JWT ' + token};
       }
-    })(ctx, next);  
+    });
   },
 
-  async register(ctx, next) {
+  async register(req, res, next) {
     try{
-        const user = new User({ displayName: req.body.name, email: req.body.email, password: req.body.password});
+        const user = new User({
+          displayName: req.body.name,
+          email: req.body.email,
+          password: req.body.password});
 
-        ctx.body = await User.create(user);
+        res.body = await User.create(user);
         
     }catch(err){
-      ctx.status = 500;
-      ctx.body = err;
-      logger.warn('Registration failed');
-
+      return next(err);
     }
     
   }
