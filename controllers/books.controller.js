@@ -6,7 +6,22 @@ export const BooksController = {
 
 	async getAllBooks(req, res, next) {
 		try {
-			const result = await Book.find().sort('name');
+			const isAdmin = false;//TODO 
+			let result = null;
+			if(isAdmin) {
+				result = await Book.find().sort('name');
+			} else {
+				result = await Book.find({isTakenByUser: {$exists: false}}).sort('name');
+			}			 
+			res.status(200).json(result);
+		} catch (err) {
+			return next(err);
+		}
+	},
+
+	async getAllBooksOfUser(req, res, next) {
+		try {
+			const result = await Book.find({isTakenByUser: {$eq: req.params.id}}).sort('name');
 			res.status(200).json(result);
 		} catch (err) {
 			return next(err);
@@ -30,23 +45,34 @@ export const BooksController = {
 
 	async updateBook(req, res, next) {
 		try {
+			const userId = req.body.userId; //should I get it from session l8r?
+			let updateBookOptions;
+			if(userId) {					//if userID was provided, we book the book for this user
+				updateBookOptions = {
+					isTakenByUser: userId
+				};
+			} else {						//else it means that user wants to release the book, 
+				updateBookOptions = {		//so we remove the corresponding field value
+					$unset: {isTakenByUser: ""}
+				};
+			}
 
-		const book = await Book.findByIdAndUpdate(
-			req.params.id, {
-				isTakenByUser: req.query.userId
-			}, {
-				new: true,
-				returnNewDocument: true,
-			},
-			function (err, result) {
-				if (err) {
-					next(err);
-				} else if (result) {
-					res.status(200).json(result);
-				} else {
-					res.status(404).json(NO_BOOKS_FOUND_FOR_ID);
-				}
-			});
+			await Book.findByIdAndUpdate(
+				req.params.id, 
+				updateBookOptions, 
+				{
+					new: true,
+					returnNewDocument: true,
+				},
+				function (err, result) {
+					if (err) {
+						next(err);
+					} else if (result) {
+						res.status(200).json(result);
+					} else {
+						res.status(404).json(NO_BOOKS_FOUND_FOR_ID);
+					}
+				});
 		} catch (err) {
 			return next(err);
 		}
