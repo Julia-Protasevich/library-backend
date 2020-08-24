@@ -47,32 +47,29 @@ export const BooksController = {
 		try {
 			const userId = req.body.userId; //should I get it from session l8r?
 			let updateBookOptions;
+
 			if(userId) {					//if userID was provided, we book the book for this user
 				updateBookOptions = {
 					isTakenByUser: userId
 				};
 			} else {						//else it means that user wants to release the book, 
 				updateBookOptions = {		//so we remove the corresponding field value
-					$unset: {isTakenByUser: ""}
+					$unset: {isTakenByUser: ''}
 				};
 			}
 
-			await Book.findByIdAndUpdate(
+			const result = await Book.findByIdAndUpdate(
 				req.params.id, 
 				updateBookOptions, 
 				{
 					new: true,
 					returnNewDocument: true,
-				},
-				function (err, result) {
-					if (err) {
-						next(err);
-					} else if (result) {
-						res.status(200).json(result);
-					} else {
-						res.status(404).json(NO_BOOKS_FOUND_FOR_ID);
-					}
 				});
+			if (result) {
+				res.status(200).json(result);
+			} else {
+				res.status(404).json(NO_BOOKS_FOUND_FOR_ID);
+			}
 		} catch (err) {
 			return next(err);
 		}
