@@ -9,3 +9,5 @@ booksRouter.route('/:id')
     .get(BooksController.getBook)
     .put(BooksController.updateBook)
     .delete(BooksController.deleteBook);
+booksRouter.route('/userid/:id')
+    .get(BooksController.getAllBooksOfUser);
